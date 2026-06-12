@@ -3,7 +3,7 @@ function handleLogin() {
   const pass = document.getElementById('password').value.trim();
   const error = document.getElementById('loginError');
   const storedApiHost = localStorage.getItem('apiHost');
-  const API_HOST = !storedApiHost || storedApiHost === 'http://127.0.0.1:5000'
+  const API_HOST = !storedApiHost || ['http://127.0.0.1:5000', 'http://localhost:5000'].includes(storedApiHost)
     ? 'http://127.0.0.1:5001'
     : storedApiHost;
   const BASE_URL = `${API_HOST}/api`;

@@ -8,6 +8,8 @@ const User = require('./models/User');
 const app = express();
 let isDbConnected = false;
 
+mongoose.set('bufferCommands', false);
+
 const turfReviewSchema = new mongoose.Schema({
     userName: { type: String, required: true },
     userEmail: { type: String, required: true },
@@ -34,7 +36,9 @@ const DEFAULT_UPI_NAME = process.env.UPI_NAME || 'TurfArena';
 const DEFAULT_UPI_NOTE_PREFIX = process.env.UPI_NOTE_PREFIX || 'TurfArena';
 const HOST = process.env.HOST || '127.0.0.1';
 
-mongoose.connect(MONGO_URI)
+mongoose.connect(MONGO_URI, {
+  serverSelectionTimeoutMS: 5000
+})
   .then(async () => {
     isDbConnected = true;
     console.log('🔥 Connected to MongoDB (TurfArena DB)');
